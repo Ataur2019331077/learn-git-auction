@@ -7,7 +7,10 @@ on:
 jobs:
   welcome:
     runs-on: ubuntu-latest
-    
+    permissions:
+      issues: write      # Grants permission to post comments
+      pull-requests: write  # Grants permission to interact with PRs
+
     steps:
     - name: Post welcome message
       uses: actions/github-script@v6
