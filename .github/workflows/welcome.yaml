@@ -9,9 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Comment welcome message
-      uses: peter-evans/comment-pr@v1
+    - name: Post welcome message
+      uses: actions/github-script@v6
       with:
-        issue-number: ${{ github.event.pull_request.number }}
-        body: |
-          :wave: Welcome @${{ github.event.pull_request.user.login }}! Thanks for opening this pull request. We're excited to see what you've got!
+        script: |
+          github.rest.issues.createComment({
+            issue_number: ${{ github.event.pull_request.number }},
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: ":wave: Welcome @${{ github.event.pull_request.user.login }}! Thanks for opening this pull request."
+          })
